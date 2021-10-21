@@ -17,7 +17,8 @@ import com.example.plantapp.databinding.FragmentMainBinding
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class MainFragment : Fragment() {
+class MainFragment : Fragment(),
+    PlantsListAdapter.ListItemListener{
 
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: FragmentMainBinding
@@ -58,6 +59,7 @@ class MainFragment : Fragment() {
         return binding.root
 
     }
+
 
 
 }

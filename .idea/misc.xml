@@ -6,7 +6,9 @@
         <entry key="..\:/MC/PlantApp/app/src/main/res/drawable/ic_add.xml" value="0.26944444444444443" />
         <entry key="..\:/MC/PlantApp/app/src/main/res/drawable/ic_check.xml" value="0.22407407407407406" />
         <entry key="..\:/MC/PlantApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/MC/PlantApp/app/src/main/res/layout/editor_fragment.xml" value="0.1" />
         <entry key="..\:/MC/PlantApp/app/src/main/res/layout/fragment_first.xml" value="0.1" />
+        <entry key="..\:/MC/PlantApp/app/src/main/res/layout/fragment_second.xml" value="0.1" />
         <entry key="..\:/MC/PlantApp/app/src/main/res/layout/list_item.xml" value="0.1" />
       </map>
     </option>
