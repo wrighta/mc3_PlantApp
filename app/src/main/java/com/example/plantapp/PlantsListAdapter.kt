@@ -11,9 +11,9 @@ import com.example.plantapp.databinding.ListItemBinding
 
 
 // a reference to the Plant List data is passed in during intialisation
-class PlantsListAdapter(private val plantsList: List<PlantEntity>,
+class PlantsListAdapter(private val plantsList: List<PlantEntity>)
     // now a listener for each list item is also passed in.
-    private val listener: ListItemListener) :
+    :
 
     // Inherits from RecyclerView.Adapter
     // it also has an inner class ViewHolder
@@ -54,14 +54,10 @@ class PlantsListAdapter(private val plantsList: List<PlantEntity>,
 
             // same as holder.binding.plantName.text
             plantName.text = plant.name
-            root.setOnClickListener{
-                listener.onItemClick(plant.id)
-            }
+
 
         }
 
     }
-    interface ListItemListener {
-        fun onItemClick(noteId: Int)
-    }
+   
 }

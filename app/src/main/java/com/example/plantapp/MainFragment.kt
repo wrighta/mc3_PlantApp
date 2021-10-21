@@ -17,8 +17,7 @@ import com.example.plantapp.databinding.FragmentMainBinding
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class MainFragment : Fragment(),
-    PlantsListAdapter.ListItemListener{
+class MainFragment : Fragment(){
 
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: FragmentMainBinding
