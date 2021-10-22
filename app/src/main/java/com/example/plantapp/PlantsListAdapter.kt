@@ -55,13 +55,13 @@ class PlantsListAdapter(private val plantsList: List<PlantEntity>,
             // same as holder.binding.plantName.text
             plantName.text = plant.name
             root.setOnClickListener{
-                listener.onItemClick(plant.id)
+                listener.onItemClick(plant)
             }
 
         }
 
     }
     interface ListItemListener {
-        fun onItemClick(noteId: Int)
+        fun onItemClick(plant: PlantEntity)
     }
 }

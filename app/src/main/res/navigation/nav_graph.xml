@@ -10,9 +10,8 @@
         android:label="editor_fragment"
         tools:layout="@layout/editor_fragment" >
         <argument
-            android:name="plantId"
-            app:argType="integer"
-            android:defaultValue="999" />
+            android:name="plant"
+            app:argType="com.example.plantapp.data.PlantEntity" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
@@ -24,7 +25,7 @@ class EditorFragment : Fragment() {
     ): View? {
         // ActionBar is menu on top
         (activity as AppCompatActivity).supportActionBar?.let {
-            // it is similar to this in Java (there are small differences)
+            // 'it' is similar to 'this' in Java (there are small differences)
             it.setHomeButtonEnabled(true)
             it.setDisplayShowHomeEnabled(true)
             it.setDisplayHomeAsUpEnabled(true)
@@ -35,7 +36,8 @@ class EditorFragment : Fragment() {
         // bind 'binding' to the editor fragment layout
         binding = EditorFragmentBinding.inflate(inflater, container, false)
        // args.plantId is the ID of the argument you added in the nav_graph (you added it to the editor fragment)
-        binding.title.setText("You selected plant : ${args.plantId}")
+        binding.title.setText(args.plant.name)
+        binding.description.setText(args.plant.description)
 
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
@@ -47,6 +49,14 @@ class EditorFragment : Fragment() {
             }
         )
         return binding.root
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            // When the home button is clicked, save changes then return to the MainFragment, which is the List
+            android.R.id.home -> saveAndReturn()
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun saveAndReturn() : Boolean{

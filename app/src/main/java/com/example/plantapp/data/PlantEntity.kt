@@ -1,21 +1,52 @@
 package com.example.plantapp.data
 
+import android.os.Parcel
 import com.example.plantapp.NEW_PLANT_ID
 import java.util.*
+import android.os.Parcelable
 
 // data means the class is going to have some properties, will have at least one primary constructor, and have functions such as equals() toString...
 // See https://www.javatpoint.com/kotlin-data-class for a comparison of Java and Kotlin classes
+
 data class PlantEntity(
     var id: Int,
-    var name: String,
+    var name: String?,
     var date: Date,
-    var description: String
-)
+    var description: String?
+) : Parcelable
 {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString(),
+        TODO("date"),
+        parcel.readString()
+    ) {
+    }
+
     // no arguments constructor - if no values are passed in this one is executed.
     constructor() : this(NEW_PLANT_ID, "", Date(), "")
     // New Plant - this constructor is called when ther eis a name, date and description, but no plant ID yet
     constructor(name: String, date: Date, description: String) : this(NEW_PLANT_ID, name, date, description)
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeString(name)
+        parcel.writeString(description)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<PlantEntity> {
+        override fun createFromParcel(parcel: Parcel): PlantEntity {
+            return PlantEntity(parcel)
+        }
+
+        override fun newArray(size: Int): Array<PlantEntity?> {
+            return arrayOfNulls(size)
+        }
+    }
 }
 
 

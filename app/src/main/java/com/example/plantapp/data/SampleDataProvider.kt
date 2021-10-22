@@ -28,10 +28,10 @@ class SampleDataProvider {
       //  private fun setDate() :
 
         fun getPlants() = arrayListOf(
-            PlantEntity(sampleName1, getDate(0), sampleDesc1),
-            PlantEntity(sampleName2, getDate(1), sampleDesc2),
-            PlantEntity(sampleName3, getDate(2), sampleDesc3),
-            PlantEntity(sampleName4, getDate(3), sampleDesc4)
+            PlantEntity(1, sampleName1, getDate(0), sampleDesc1),
+            PlantEntity(2, sampleName2, getDate(1), sampleDesc2),
+            PlantEntity(3, sampleName3, getDate(2), sampleDesc3),
+            PlantEntity(4, sampleName4, getDate(3), sampleDesc4)
 
         )
 
