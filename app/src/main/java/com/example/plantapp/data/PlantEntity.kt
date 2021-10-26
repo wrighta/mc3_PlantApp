@@ -9,24 +9,27 @@ import android.os.Parcelable
 // See https://www.javatpoint.com/kotlin-data-class for a comparison of Java and Kotlin classes
 
 data class PlantEntity(
+    // Note in this version of my code I've changed the attributes so they match up with the JSON data.
     var id: Int,
+    var imageName: String?,
     var name: String?,
-    var date: Date,
-    var description: String?
+    var description: String?,
+    var price: Double
 ) : Parcelable
 {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),
-        TODO("date"),
-        parcel.readString()
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readDouble()
     ) {
     }
 
-    // no arguments constructor - if no values are passed in this one is executed.
-    constructor() : this(NEW_PLANT_ID, "", Date(), "")
-    // New Plant - this constructor is called when ther eis a name, date and description, but no plant ID yet
-    constructor(name: String, date: Date, description: String) : this(NEW_PLANT_ID, name, date, description)
+    // Don't think I need this constructor....no arguments constructor - if no values are passed in this one is executed.
+   // constructor() : this(NEW_PLANT_ID, "", "", "", 0.0)
+    // New Plant - this constructor is called when there is a name, date and description, but no plant ID yet
+   // constructor(name: String, date: Date, description: String) : this(NEW_PLANT_ID, name, description)
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
@@ -48,28 +51,4 @@ data class PlantEntity(
         }
     }
 }
-
-
-//import android.os.Parcelable
-////import androidx.room.Entity
-////import androidx.room.PrimaryKey
-//import com.example.plantapp.NEW_PLANT_ID
-//import kotlinx.android.parcel.Parcelize
-//import java.util.*
-//
-//@Parcelize
-//@Entity(tableName = "plants")
-//data class PlantEntity(
-//    @PrimaryKey(autoGenerate = true)
-//    var id: Int,
-//    var name: String,
-//    var date: Date,
-//    var description: String
-//
-//
-//
-//) : Parcelable {
-//    constructor() : this(NEW_PLANT_ID, "", Date(), "")
-//    constructor(name: String, date: Date, description: String) : this(NEW_PLANT_ID, name, date, description)
-//}
 

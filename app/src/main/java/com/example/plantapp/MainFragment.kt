@@ -38,8 +38,9 @@ class MainFragment : Fragment(),
 
 
         binding = FragmentMainBinding.inflate(inflater, container, false)
-        // remember viewModel contains the MutableLiveData which is the list of Plants
-        // we will use this later to populate the RecyclerView and observe it for changes
+        // remember viewModel contains the LiveData which is the list of Plants
+        // Instantiate the ViewModel - init in the view model will be called first time this is done.
+        // Have a look at ViewModel init{ } it calls getPlants() which gets the list of plants from the API using retrofit
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         // with is used to access an object attributes, without have to refer to the object every time
@@ -50,14 +51,9 @@ class MainFragment : Fragment(),
                 context, LinearLayoutManager(context).orientation
             )
             addItemDecoration(divider)
-            // without using with you may have done this...
-            // binding.recyclerView.addItemDecoration(divider)
         }
 
-        viewModel.plantsList.observe(viewLifecycleOwner, Observer {
-            // for debugging - Log.i() to the Logcat during execution and view Info messages with the tag TAG (see constants for the literal string)
-            // Log.i(TAG, it.toString())
-
+        viewModel.plants.observe(viewLifecycleOwner, Observer {
             adapter = PlantsListAdapter(it, this@MainFragment)
             binding.recyclerView.adapter = adapter
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -71,7 +67,7 @@ class MainFragment : Fragment(),
 
         // Log - print out to logcat to help with debugging if errors occur
         // TAG is a constant defined in Constants.kt - you can search yhe logcat using this TAG to help with debugging errors
-        Log.i(TAG, "onItemClick : Received Plant name ${plant.name}")
+        // Log.i(TAG, "onItemClick : Received Plant name ${plant.name}")
         val action = MainFragmentDirections.actionMainFragmentToEditorFragment(plant)
         findNavController().navigate(action)
     }
