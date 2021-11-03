@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,  
+    "imageName": "figus",
+    "name": "Figus Lyratha",
+    "description": "Dramatic plant, often seen in magazine photo shoots",
+    "price": 12.99
+  },
+  {
+    "id": 2,    
+    "imageName": "elasticia",
+    "name": "Rubber Plant",
+    "description": "Retro looking plant, would look the part in a 70's office",
+    "price": 20.00
+  },
+  {
+    "id": 3,  
+    "imageName": "monstera",
+    "name": "Swiss Cheese plant",
+    "description": "Another Retro plant, called swiss cheese because of the holes in the leaves",
+    "price": 40.00
+  },
+  {
+    "id": 4,  
+    "imageName": "figus",
+    "name": "Figus Lyratha",
+    "description": "Dramatic plant, often seen in magazine photo shoots",
+    "price": 12.99
+  },
+  {
+    "id": 5,  
+    "imageName": "elasticia",
+    "name": "Rubber Plant",
+    "description": "Retro looking plant, would look the part in a 70's office",
+    "price": 20.00
+  },
+  {
+    "id": 6,  
+    "imageName": "monstera",
+    "name": "Swiss Cheese plant",
+    "description": "Another Retro plant, called swiss cheese because of the holes in the leaves",
+    "price": 40.00
+  }
+
+    
+]
