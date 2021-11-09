@@ -35,6 +35,7 @@ class MainFragment : Fragment(),
         // action bar with the up/back/home button - Tick symbol, does not display in ListFragment, but is set to display in EditorFragment,
         (activity as AppCompatActivity)
             .supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        setHasOptionsMenu(true)
 
 
         binding = FragmentMainBinding.inflate(inflater, container, false)

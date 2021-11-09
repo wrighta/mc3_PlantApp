@@ -1,4 +1,4 @@
-package com.example.plantapp.dataaccess
+package com.example.plantapp.webaccess
 
 import com.example.plantapp.WEB_SERVICE_URL
 import okhttp3.OkHttpClient
@@ -9,9 +9,11 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object RetrofitInstance {
 
+
+
     private val retrofit by lazy {
         val logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        logging.setLevel(HttpLoggingInterceptor.Level.BASIC)
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor(logging)
         Retrofit.Builder()

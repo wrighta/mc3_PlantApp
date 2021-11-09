@@ -3,7 +3,7 @@ package com.example.plantapp
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.plantapp.data.PlantEntity
-import com.example.plantapp.dataaccess.RetrofitInstance
+import com.example.plantapp.webaccess.RetrofitInstance
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {

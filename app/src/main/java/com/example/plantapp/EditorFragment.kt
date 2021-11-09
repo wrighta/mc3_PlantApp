@@ -2,6 +2,7 @@ package com.example.plantapp
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -9,8 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.plantapp.data.FavouriteEntity
 import com.example.plantapp.databinding.EditorFragmentBinding
 
 class EditorFragment : Fragment() {
@@ -33,11 +36,24 @@ class EditorFragment : Fragment() {
         }
         setHasOptionsMenu(true)
 
-        // bind 'binding' to the editor fragment layout
+
+
         binding = EditorFragmentBinding.inflate(inflater, container, false)
-       // args.plantId is the ID of the argument you added in the nav_graph (you added it to the editor fragment)
+
+        // Set the title and description from the Plant object passed in from the MainFragment
         binding.title.setText(args.plant.name)
         binding.description.setText(args.plant.description)
+
+        // create the viewModel, observe the live data (Favourite object for the current Plant)
+        // if the live data changes update the layout so it displays those comments.
+        viewModel = ViewModelProvider(this).get(EditorViewModel::class.java)
+        viewModel.currentFavourite.observe(viewLifecycleOwner, Observer {
+           binding.myNotes.setText(it.myNotes)
+        })
+
+        // tell the viewModel to get access the local database to see if there are favourite comments for the current plant
+        viewModel.getFavourite(args.plant.id)
+
 
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
@@ -60,14 +76,14 @@ class EditorFragment : Fragment() {
     }
 
     private fun saveAndReturn() : Boolean{
+        // at the moment we save to favourites, even if there are no comments
+        // Try insert a save or cancel functionality so this does not happen.
+        viewModel.saveFavourite(FavouriteEntity(args.plant.id, binding.myNotes.text.toString()))
+
         findNavController().navigateUp()
         return true
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EditorViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+
 
 }
