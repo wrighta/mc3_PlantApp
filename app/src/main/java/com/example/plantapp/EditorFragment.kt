@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.plantapp.data.FavouriteEntity
 import com.example.plantapp.databinding.EditorFragmentBinding
 
@@ -43,9 +44,14 @@ class EditorFragment : Fragment() {
         // Set the title and description from the Plant object passed in from the MainFragment
         binding.title.setText(args.plant.name)
         binding.description.setText(args.plant.description)
+        // load the image from the web(imageName)
+        // into the plantImage object in the layout
+        Glide.with(this)
+            .load(args.plant.imageName)
+            .into(binding.plantImage)
+
 
         // create the viewModel, observe the live data (Favourite object for the current Plant)
-        // if the live data changes update the layout so it displays those comments.
         viewModel = ViewModelProvider(this).get(EditorViewModel::class.java)
         viewModel.currentFavourite.observe(viewLifecycleOwner, Observer {
            binding.myNotes.setText(it.myNotes)
@@ -59,8 +65,7 @@ class EditorFragment : Fragment() {
             viewLifecycleOwner,
             object : OnBackPressedCallback(true){
                 override fun handleOnBackPressed(){
-                    // you write the code for saveAndReturn - later this will need to save to the Database
-                    saveAndReturn()
+                  saveAndReturn()
                 }
             }
         )
@@ -69,17 +74,13 @@ class EditorFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            // When the home button is clicked, save changes then return to the MainFragment, which is the List
             android.R.id.home -> saveAndReturn()
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     private fun saveAndReturn() : Boolean{
-        // at the moment we save to favourites, even if there are no comments
-        // Try insert a save or cancel functionality so this does not happen.
         viewModel.saveFavourite(FavouriteEntity(args.plant.id, binding.myNotes.text.toString()))
-
         findNavController().navigateUp()
         return true
     }

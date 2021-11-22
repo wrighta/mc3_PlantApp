@@ -17,24 +17,24 @@ data class PlantEntity(
     var price: Double
 ) : Parcelable
 {
+    // Glide uses this get method to get the image from the web using the URL
+//    val thumbnailImageUrl
+//        get() = imageName
+
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readDouble()
-    ) {
-    }
-
-    // Don't think I need this constructor....no arguments constructor - if no values are passed in this one is executed.
-   // constructor() : this(NEW_PLANT_ID, "", "", "", 0.0)
-    // New Plant - this constructor is called when there is a name, date and description, but no plant ID yet
-   // constructor(name: String, date: Date, description: String) : this(NEW_PLANT_ID, name, description)
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
+        parcel.writeString(imageName)
         parcel.writeString(name)
         parcel.writeString(description)
+        parcel.writeDouble(price)
     }
 
     override fun describeContents(): Int {

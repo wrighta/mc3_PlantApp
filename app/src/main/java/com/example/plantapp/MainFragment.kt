@@ -11,14 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantapp.data.PlantEntity
 
 import com.example.plantapp.databinding.FragmentMainBinding
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+
 class MainFragment : Fragment(),
     PlantsListAdapter.ListItemListener{
 
@@ -39,25 +38,14 @@ class MainFragment : Fragment(),
 
 
         binding = FragmentMainBinding.inflate(inflater, container, false)
-        // remember viewModel contains the LiveData which is the list of Plants
-        // Instantiate the ViewModel - init in the view model will be called first time this is done.
-        // Have a look at ViewModel init{ } it calls getPlants() which gets the list of plants from the API using retrofit
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+           viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        // with is used to access an object attributes, without have to refer to the object every time
-        // with is actually a function, and the object in this case is the recyclerView
-        with(binding.recyclerView) {
-            setHasFixedSize(true)
-            val divider = DividerItemDecoration(
-                context, LinearLayoutManager(context).orientation
-            )
-            addItemDecoration(divider)
-        }
 
         viewModel.plants.observe(viewLifecycleOwner, Observer {
-            adapter = PlantsListAdapter(it, this@MainFragment)
+            // Pass the context into the adapter as Glide needs to know it
+            adapter = PlantsListAdapter(requireContext(),it, this@MainFragment)
             binding.recyclerView.adapter = adapter
-            binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+           // binding.recyclerView.layoutManager = GridLayoutManager(activity) // no need for this...LayoutManager decided in the xml
          }    )
 
         return binding.root
@@ -65,11 +53,7 @@ class MainFragment : Fragment(),
     }
 
     override fun onItemClick(plant: PlantEntity) {
-
-        // Log - print out to logcat to help with debugging if errors occur
-        // TAG is a constant defined in Constants.kt - you can search yhe logcat using this TAG to help with debugging errors
-        // Log.i(TAG, "onItemClick : Received Plant name ${plant.name}")
-        val action = MainFragmentDirections.actionMainFragmentToEditorFragment(plant)
+   val action = MainFragmentDirections.actionMainFragmentToEditorFragment(plant)
         findNavController().navigate(action)
     }
 
